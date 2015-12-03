@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1: -->
+<templates>
+    
+    <!-- ACSONE - ADRIEN PEIFFER -->
+    
+    <t t-extend="PosWidget" t-operation="replace">
+        <t t-jquery="#cash_deposit" t-operation="after">
+            <span id="pay_sale_order_button" class="order-button">Pay Quotation</span>
+        </t>
+    </t>
+    
+        <t t-name="sale_orderScreenWidget">
+        <div class="sale_order-screen screen">
+            <table class="layout-table">
+
+                <tr class="header-row">
+                    <td class="header-cell">
+
+                        <header class='rightpane-header'>
+
+                            <span class="breadcrumb">
+                                <span class="breadcrumb-button js-category-switch close-sale_order">
+                                    <img src="/pos_cash_deposit/static/src/img/close-customer.png" class="breadcrumb-homeimg" />
+                                </span>
+                            </span>
+                        </header>
+
+                    </td>
+                </tr>
+
+                <tr class="content-row">
+                    <td class="content-cell">
+                        <div class="content-container">
+                            <span class="placeholder-sale_orderListWidget" />
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </t>
+    
+    <t t-name="sale_orderListWidget">
+        <div class='sale-order-list-container'>
+            <div class="sale-order-list-scroller touch-scrollable">
+                <div class="sale-order-list">
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+                </div>
+            </div>
+            <span class="placeholder-ScrollbarWidget" />
+        </div>
+    </t>
+    
+    <t t-name="sale_order">
+        <tr class='sale_order' t-att-data-sale_order-id="sale_order.id">
+            <td><t t-esc="sale_order.name || ''" /></td>
+            <td><t t-esc="sale_order.date_order || ''" /></td>
+            <td><value value-decimals='2'><t t-esc="sale_order.amount_total || ''" /></value></td>
+        </tr>
+    </t>
+</templates>

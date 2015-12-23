@@ -36,7 +36,7 @@ function pos_pay_invoice_screens(instance, module) {
             });
             var currentOrder = self.pos.get('selectedOrder');
             var client_id = currentOrder.get_client().id;
-            var invoices_list = self.fetch('account.invoice', ['id','partner_id','number','date_invoice','date_due','amount_untaxed','amount_total','residual','origin'], [['partner_id.id', '=', client_id], ['state', '=', 'open']]).then(function(invoices) {
+            var invoices_list = self.fetch('account.invoice', ['id','partner_id','number','date_invoice','date_due','amount_untaxed','amount_total','residual','origin'], [['commercial_partner_id.id', '=', client_id], ['state', '=', 'open'], ['type', '=', 'out_invoice']]).then(function(invoices) {
                 var invoices_list = [];
                 for (var i = 0, len = invoices.length; i < len; i++) {
                     invoices_list.push(invoices[i]);

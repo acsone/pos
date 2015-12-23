@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1: -->
+<templates>
+    
+    <!-- ACSONE - ADRIEN PEIFFER -->
+    
+    <t t-extend="PosWidget" t-operation="replace">
+        <t t-jquery=".order-selector" t-operation="append">
+            <span id="cash_deposit" class="order-button">Cash Deposit</span>
+        </t>
+    </t>
+    <t t-name="CashDepositPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup">
+                <p class="message">Cash Deposit</p>
+                Message : <input id="message_deposit" type="text"></input>
+                <br />
+                Amount : <input id="amount_deposit" type="text"></input>
+                <div class="footer">
+                    <div class="button apply-button">
+                        Apply
+                    </div>
+                    <div class="button close-button">
+                        Close
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

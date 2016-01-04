@@ -24,7 +24,7 @@ function pos_cash_deposit_models(instance, module) { //module is instance.point_
         for (var index in orderLines) {
             if (orderLines.hasOwnProperty(index)) {
                 if (orderLines[index].product.id == this.pos.db.cash_deposit_id) {
-                    self.posmodel.pos_widget.screen_selector.show_popup('error', {
+                    self.pos_widget.screen_selector.show_popup('error', {
                         message: _t('Please remove cash deposit product of your ' +
                             'shopping cart to process to add some products')
                     });

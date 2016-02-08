@@ -77,24 +77,9 @@ function pos_cash_deposit_widgets(instance, module) {
                 product: product,
                 notice: message
             });
-            var trouve = false;
             var orderLines = order.get('orderLines').models;
-            for (var index in orderLines) {
-                if (orderLines.hasOwnProperty(index)) {
-                    if (orderLines[index].product.id !== self.pos.db.cash_deposit_id) {
-                        self.pos_widget.screen_selector.show_popup('error', {
-                            message: _t('Please remove the products from your ' +
-                                'shopping cart to make to a cash deposit')
-                        });
-                        trouve = true;
-                        break;
-                    }
-                }
-            }
-            if (!trouve) {
-                order.get('orderLines').add(line);
-                order.selectLine(order.getLastOrderline());
-            }
+            order.get('orderLines').add(line);
+            order.selectLine(order.getLastOrderline());
         }
     });
 }

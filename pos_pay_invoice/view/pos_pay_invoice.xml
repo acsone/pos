@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="assets_backend" name="pos_pay_invoice" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                 <script type="text/javascript" src="/pos_pay_invoice/static/src/js/pos_pay_invoice.js"></script>
+                 <script type="text/javascript" src="/pos_pay_invoice/static/src/js/pos_pay_invoice_widget.js"></script>
+                 <script type="text/javascript" src="/pos_pay_invoice/static/src/js/pos_pay_invoice_screen.js"></script>
+            </xpath>
+        </template>
+
+        <template id="index" name="POS Index" inherit_id="point_of_sale.index">
+           <xpath expr="//link[@id='pos-stylesheet']" position="after">
+                <link rel="stylesheet" href="/pos_pay_invoice/static/src/css/pos_pay_invoice.css"/>
+           </xpath>
+        </template>
+    </data>
+</openerp>

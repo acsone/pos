@@ -16,25 +16,4 @@ function pos_cash_deposit_models(instance, module) { //module is instance.point_
         this.notice = options.notice;
         _super_initialize.call(this, attr, options);
     };
-
-    module.Order.prototype.addProduct = function (product, options) {
-        var parent = this
-        var orderLines = this.attributes.orderLines.models;
-        var trouve = false;
-        for (var index in orderLines) {
-            if (orderLines.hasOwnProperty(index)) {
-                if (orderLines[index].product.id == this.pos.db.cash_deposit_id) {
-                    self.pos_widget.screen_selector.show_popup('error', {
-                        message: _t('Please remove cash deposit product of your ' +
-                            'shopping cart to process to add some products')
-                    });
-                    trouve = true;
-                    continue;
-                }
-            }
-        }
-        if (!trouve) {
-            _super_addProduct.call(parent, product, options);
-        }
-    }
 }

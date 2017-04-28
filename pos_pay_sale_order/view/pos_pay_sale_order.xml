@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Include JS file for the custom view to select domain from filters -->
+        <template id="assets_backend" name="filter_selection" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                 <script type="text/javascript" src="/pos_pay_sale_order/static/src/js/pos_pay_sale_order.js"></script>
+                 <script type="text/javascript" src="/pos_pay_sale_order/static/src/js/pos_pay_sale_order_widget.js"></script>
+                 <script type="text/javascript" src="/pos_pay_sale_order/static/src/js/pos_pay_sale_order_screen.js"></script>
+            </xpath>
+        </template>
+        
+        <template id="index" name="POS Index" inherit_id="point_of_sale.index">
+           <xpath expr="//link[@id='pos-stylesheet']" position="after">
+                <link rel="stylesheet" href="/pos_pay_sale_order/static/src/css/pos_pay_sale_order.css"/>
+           </xpath>
+        </template>
+    </data>
+</openerp>

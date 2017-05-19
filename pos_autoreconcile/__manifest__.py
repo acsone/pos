@@ -11,8 +11,7 @@
     'depends': [
         'point_of_sale',
     ],
-    'data': [
-        'security/ir.model.access.csv',
-    ],
+    'data': []
+    ,
     'installable': True,
 }

@@ -8,11 +8,11 @@
     'author': 'Versada UAB,Odoo Community Association (OCA)',
     'category': 'Point Of Sale',
     'website': 'https://odoo-community.org/',
-	'license': "AGPL-3",
+    'license': "AGPL-3",
     'depends': [
         'point_of_sale',
     ],
     'data': [
-	],
+    ],
     'installable': True,
 }

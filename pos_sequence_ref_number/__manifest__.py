@@ -11,6 +11,7 @@
               "Acsone SA/NV,"
               "Odoo Community Association (OCA)",
     'summary': 'Sequential Order numbers for Point of sale',
+    'license': 'AGPL-3',
     'depends': [
         "point_of_sale",
     ],

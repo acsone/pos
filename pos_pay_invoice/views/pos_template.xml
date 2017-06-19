@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <template id="pos_pay_invoice_assets" name="pos_pay_invoice_assets"
+              inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+
+            <script type="text/javascript" src="/pos_pay_invoice/static/src/js/screens.js"/>
+            <script type="text/javascript" src="/pos_pay_invoice/static/src/js/widgets.js"/>
+
+            <link rel="stylesheet" type="text/less" href="/pos_pay_invoice/static/src/less/pos.less"/>
+
+        </xpath>
+    </template>
+
+</data>
+</odoo>

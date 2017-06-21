@@ -13,7 +13,7 @@ class PosOrder(models.Model):
             session=session, move=move)
 
         account_def = self.env['ir.property'].get(
-            'property_account_receivable', 'res.partner')
+            'property_account_receivable_id', 'res.partner')
 
         grouped_data = {}
 

@@ -152,20 +152,48 @@ odoo.define('pos_pay_invoice.screens', function (require) {
                 }
 
                 var invoice = self.current_invoice;
-                var message = _t('POS Invoice Payment') + ' (' + invoice.number + ')';
-                var order = self.pos.get_order();
-                order.create_cash_deposit(invoice.amount_total, message);
-                self.gui.show_popup('alert', {
-                    'title': _t("Invoice added"),
-                    'body': _t("Invoice with number")
-                            + ' ' + invoice.number + ' '
-                            + _("has been added to the order list."),
-                })
+                var can_add_invoice = self.check_add_invoice(invoice);
+
+                if(can_add_invoice) {
+                    var message = _t('POS Invoice Payment') + ' (' + invoice.number + ')';
+                    var order = self.pos.get_order();
+                    order.create_cash_deposit(invoice.amount_total, message, {
+                        invoice_id: invoice.id,
+                        invoice_partner_id: invoice.partner_id[0],
+                    });
+                    self.gui.show_popup('alert', {
+                        'title': _t("Invoice added"),
+                        'body': _t("Invoice with number")
+                                + ' ' + invoice.number + ' '
+                                + _("has been added to the order list."),
+                    });
+                }
             });
 
             $invoice_details.delegate('div.go-to', 'click', function(event) {
                 self.open_current_invoice_in_backend();
             });
+        },
+
+        check_add_invoice: function(invoice) {
+            var self = this;
+            var can_add = true;
+            var orderlines = self.pos.get_order().get_orderlines();
+            var orderline;
+            for(var i=0; i < orderlines.length; i++) {
+                orderline = orderlines[i];
+
+                if(!!orderline.invoice_id && orderline.invoice_id === invoice.id) {
+                    self.gui.show_popup('error', {
+                        'title': _t("Invoice already added"),
+                        'body': _t("Invoice with number")
+                                + ' ' + invoice.number + ' '
+                                + _("has already been added to the order list."),
+                    });
+                    can_add = false;
+                }
+            }
+            return can_add;
         },
 
         open_current_invoice_in_backend: function() {

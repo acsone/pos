@@ -6,6 +6,7 @@
               inherit_id="point_of_sale.assets">
         <xpath expr="." position="inside">
 
+            <script type="text/javascript" src="/pos_pay_invoice/static/src/js/models.js"/>
             <script type="text/javascript" src="/pos_pay_invoice/static/src/js/screens.js"/>
             <script type="text/javascript" src="/pos_pay_invoice/static/src/js/widgets.js"/>
 

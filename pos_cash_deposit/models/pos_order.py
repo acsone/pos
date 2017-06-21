@@ -95,7 +95,6 @@ class PosOrder(models.Model):
             'partner_id': partner.id,
             'journal_id': sale_journal.id,
             'move_id': move and move.id or self.account_move.id,
-            'company_id': self.company_id.id,
         }
         return values
 

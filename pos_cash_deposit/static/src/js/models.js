@@ -95,15 +95,16 @@ odoo.define('pos_cash_deposit.models', function (require) {
             return false;
         },
 
-        create_cash_deposit: function(amount, message) {
+        create_cash_deposit: function(amount, message, other_extras) {
             var self = this;
             var cash_deposit_product = self.pos.config.cash_deposit_product;
+            var extras = _.extend(other_extras || {}, {
+                cash_deposit_msg: message,
+            });
             self.add_product(cash_deposit_product, {
                 quantity: 1,
                 price: amount,
-                extras: {
-                    cash_deposit_msg: message,
-                }
+                extras: extras,
             });
         }
     });

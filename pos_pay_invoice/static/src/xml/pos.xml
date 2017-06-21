@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!--<t t-extend="ProductScreenWidget">-->
+
+        <!--<t t-jquery=".window" t-operation="append">-->
+            <!--<div class="subwindow">-->
+                <!--<div class='subwindow-container'>-->
+                    <!--<div class="subwindow-container-fix">-->
+                        <!--<span class="placeholder-PayInvoiceWidget"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</t>-->
+
+    <!--</t>-->
+
+    <t t-extend="ProductScreenWidget">
+
+        <t t-jquery=".window-cash-deposit" t-operation="append">
+            <span class="placeholder-PayInvoiceWidget"/>
+        </t>
+
+    </t>
+
+
+    <t t-name="PayInvoiceWidget">
+        <div class="actionpad cash-deposit-pad pay-invoice-pad">
+            <button t-attf-class="button pay-invoice-button" >
+                <i class="fa fa-file-text-o"/> Pay invoice
+            </button>
+        </div>
+    </t>
+
+    <t t-name="InvoiceListScreenWidget">
+        <div class="invoicelist-screen screen">
+            <div class="screen-content">
+                <section class="top-content">
+                    <span class="button back">
+                        <i class="fa fa-angle-double-left"/>
+                        Back
+                    </span>
+                    <span class="button customer-name oe_hidden highlight next">
+
+                    </span>
+                    <span class="searchbox">
+                        <input placeholder="Search Invoices" class="search-filter" />
+                        <span class="search-clear"/>
+                    </span>
+                    <span class="searchbox"/>
+                    <span class="button select-customer oe_hidden highlight next">
+                        Select Customer
+                        <i class="fa fa-angle-double-right"/>
+                    </span>
+                </section>
+                <section class="full-content">
+                    <div class="window">
+                        <section class="subwindow collapsed">
+                            <div class="subwindow-container collapsed">
+                                <div class="subwindow-container-fix invoice-details-contents">
+                                </div>
+                            </div>
+                        </section>
+                        <section class="subwindow">
+                            <div class="subwindow-container">
+                                <div class="subwindow-container-fix touch-scrollable scrollable-y">
+                                    <table class="invoice-list">
+                                        <thead>
+                                            <tr>
+                                                <th>Number</th>
+                                                <th>Invoice date</th>
+                                                <th>Due Date</th>
+                                                <th>Source Document</th>
+                                                <th>Balance</th>
+                                                <th>Subtotal</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="invoice-list-contents">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="InvoiceLine">
+        <tr class="invoice-line" t-att-data-id="invoice.id">
+            <td><t t-esc="invoice.number"/></td>
+            <td><t t-esc="invoice.date_invoice"/></td>
+            <td><t t-esc="invoice.date_due || ''"/></td>
+            <td><t t-esc="invoice.origin || ''"/></td>
+            <td><t t-esc="invoice.fmt_residual"/></td>
+            <td><t t-esc="invoice.fmt_amount_untaxed"/></td>
+            <td><t t-esc="invoice.fmt_amount_total"/></td>
+        </tr>
+    </t>
+    
+    <t t-name="InvoiceDetails">
+        <section class="invoice-details">
+            <div class="invoice-name"><t t-esc="invoice.number"/></div>
+            <div class="action-buttons">
+                <div class="button go-to" title="Go to">
+                    <i class="fa fa-arrow-circle-right"/>
+                </div>
+
+                <div class="button pay" title="Add to order">
+                    <i class="fa fa-plus-square"/>
+                </div>
+            </div>
+            <div class="invoice-details-box clearfix">
+                <div class="invoice-details-left">
+                    <div class="invoice-detail">
+                        <span class="label">Partner</span>
+                        <span t-esc="invoice.partner_id[1]"/>
+                    </div>
+                    <div class="invoice-detail" t-if="invoice.reference">
+                        <span class="label">Reference</span>
+                        <span t-esc="invoice.origin"/>
+                    </div>
+                    <div class="invoice-detail">
+                        <span class="label">Residual</span>
+                        <span t-esc="invoice.fmt_residual"/>
+                    </div>
+                    <div class="invoice-detail">
+                        <span class="label">Amount</span>
+                        <span t-esc="invoice.fmt_amount_total"/>
+                    </div>
+                </div>
+                <div class="invoice-details-right">
+                    <div class="invoice-detail">
+                        <span class="label">Date</span>
+                        <span t-esc="invoice.date_invoice"/>
+                    </div>
+                    <div class="invoice-detail" t-if="invoice.date_due">
+                        <span class="label">Date due</span>
+                        <span t-esc="invoice.date_due"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </t>
+
+</templates>

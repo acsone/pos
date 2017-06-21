@@ -1,0 +1,126 @@
+
+.pos {
+
+    .invoicelist-screen {
+
+        .searchbox {
+            right: auto;
+            margin-left: -90px;
+            margin-top:8px;
+            left: 50%;
+
+            input {
+                width: 120px;
+            }
+
+        }
+
+        .invoice-details-box {
+            position: relative;
+            font-size: 16px;
+        }
+
+        .invoice-details-left {
+            width: 50%;
+            float: left;
+        }
+
+        .invoice-details-right {
+            width: 50%;
+            float: right;
+        }
+
+        .invoice-details {
+            padding: 16px;
+            border-bottom: solid 5px rgb(110,200,155);
+
+            .invoice-name {
+                font-size: 32px;
+                line-height: 64px;
+                margin-bottom:16px;
+            }
+
+            .invoice-detail {
+                line-height: 24px;
+            }
+
+            .invoice-detail > .label {
+                font-weight: bold;
+                display: inline-block;
+                width: 75px;
+                text-align: right;
+                margin-right: 8px;
+            }
+
+            .action-buttons {
+                position: absolute;
+                right: 16px;
+                top: 10px;
+
+                .button{
+                    display: inline-block;
+                    margin-left: 16px;
+                    color: rgb(128,128,128);
+                    cursor: pointer;
+                    font-size: 36px;
+                }
+            }
+        }
+
+        .invoice-list {
+            font-size: 16px;
+            width: 100%;
+            line-height: 40px;
+
+            td, tr {
+                padding: 0px 8px;
+            }
+
+            tr {
+                transition: all 150ms linear;
+                background: rgb(230,230,230);
+            }
+
+            thead > tr, tr:nth-child(even) {
+                background: rgb(247,247,247);
+            }
+
+            tr.highlight {
+                transition: all 150ms linear;
+                background: rgb(110,200,155) !important;
+                color: white;
+            }
+
+            tr.lowlight {
+                transition: all 150ms linear;
+                background: rgb(216, 238, 227);
+            }
+
+            tr.lowlight:nth-child(even) {
+                transition: all 150ms linear;
+                background: rgb(227, 246, 237);
+            }
+
+        }
+    }
+}
+
+div.cash-deposit-pad {
+  width: 202px !important;
+}
+
+div.pay-invoice-pad {
+    display: inline-block !important;
+    float: right !important;
+    text-align: center !important;
+    width: 202px !important;
+    margin: 16px !important;
+    margin-top: 8px !important;
+    margin-left: 0px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    border-top: 1px solid !important;
+    border-color: #bfbfbf !important;
+    border-top-right-radius: 4px !important;
+}
+

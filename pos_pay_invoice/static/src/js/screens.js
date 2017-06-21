@@ -353,6 +353,7 @@ odoo.define('pos_pay_invoice.screens', function (require) {
                 ['state', '=', 'open'],
                 ['type', '=', 'out_invoice'],
                 ['currency_id', '=', self.pos.currency.id],
+                ['partner_id.customer', '=', true],
             ];
             if (!!client) {
                 domain.push(['commercial_partner_id', '=', client.id]);

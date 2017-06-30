@@ -45,7 +45,6 @@ odoo.define('pos_pay_invoice.screens', function (require) {
             'click .back': 'go_back',
             'keypress input.search-filter': 'filter_search',
             'keydown input.search-filter': 'filter_search',
-            'change input.search-filter': 'filter_search',
             'click .search-clear': 'clear_search',
             'click .select-customer': 'select_customer',
         },
@@ -88,6 +87,11 @@ odoo.define('pos_pay_invoice.screens', function (require) {
             return self.$('input.search-filter');
         },
 
+        get_search_loading_spinner_el: function() {
+            var self = this;
+            return self.$('.searchbox > .spinner');
+        },
+
         get_search_value: function() {
             var self = this;
             return self.get_search_filter_el().val();
@@ -96,6 +100,16 @@ odoo.define('pos_pay_invoice.screens', function (require) {
         hide_invoice_details: function() {
             var self = this;
             self.get_invoice_details_el().empty();
+        },
+
+        show_search_loading_spinner: function() {
+            var self = this;
+            self.get_search_loading_spinner_el().show();
+        },
+
+        hide_search_loading_spinner: function() {
+            var self = this;
+            self.get_search_loading_spinner_el().hide();
         },
 
         go_back: function() {
@@ -115,7 +129,7 @@ odoo.define('pos_pay_invoice.screens', function (require) {
             var self = this;
             var $search_filter = self.get_search_filter_el();
             $search_filter.val('');
-            $search_filter.trigger('change');
+            $search_filter.trigger('keypress');
         },
 
         has_customer: function() {
@@ -270,6 +284,7 @@ odoo.define('pos_pay_invoice.screens', function (require) {
             var self = this;
             var fields = self.get_invoice_fields_to_read();
             var domain = self.get_invoice_domain();
+            self.show_search_loading_spinner();
             var def = self.ModelInvoice.
             query(fields).
             filter(domain).
@@ -279,7 +294,9 @@ odoo.define('pos_pay_invoice.screens', function (require) {
                     self.format_invoice(invoice);
                 });
                 self.invoices = invoices;
+                self.hide_search_loading_spinner();
             }).fail(function() {
+                self.hide_search_loading_spinner();
                 self.gui.show_popup('error', {
                     'title': _t("Unable to load invoice list"),
                     'body': _t("Please check your internet connection and retry."),

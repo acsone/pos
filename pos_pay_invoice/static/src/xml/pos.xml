@@ -46,8 +46,8 @@
                     <span class="searchbox">
                         <input placeholder="Search Invoices" class="search-filter" />
                         <span class="search-clear"/>
+                        <i class="fa fa-spinner fa-spin spinner"/>
                     </span>
-                    <span class="searchbox"/>
                     <span class="button select-customer oe_hidden highlight next">
                         Select Customer
                         <i class="fa fa-angle-double-right"/>

@@ -116,7 +116,7 @@
                 <div class="invoice-details-left">
                     <div class="invoice-detail">
                         <span class="label">Partner</span>
-                        <span t-esc="invoice.partner_id[1]"/>
+                        <span t-esc="invoice.commercial_partner_id[1]"/>
                     </div>
                     <div class="invoice-detail" t-if="invoice.reference">
                         <span class="label">Reference</span>

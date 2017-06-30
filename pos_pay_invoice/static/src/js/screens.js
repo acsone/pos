@@ -173,7 +173,7 @@ odoo.define('pos_pay_invoice.screens', function (require) {
                     var order = self.pos.get_order();
                     order.create_cash_deposit(invoice.amount_total, message, {
                         invoice_id: invoice.id,
-                        invoice_partner_id: invoice.partner_id[0],
+                        invoice_partner_id: invoice.commercial_partner_id[0],
                     });
                     self.gui.show_popup('alert', {
                         'title': _t("Invoice added"),
@@ -261,7 +261,7 @@ odoo.define('pos_pay_invoice.screens', function (require) {
             var self = this;
 
             if (!self.has_customer()) {
-                var partner_id = self.current_invoice.partner_id[0];
+                var partner_id = self.current_invoice.commercial_partner_id[0];
                 var partner = self.pos.db.get_partner_by_id(partner_id);
                 self.pos.get_order().set_client(partner);
                 self.toggle_select_customer_button();
@@ -358,7 +358,7 @@ odoo.define('pos_pay_invoice.screens', function (require) {
             return [
                 'number', 'amount_tax', 'amount_untaxed', 'residual',
                 'date_invoice', 'amount_total', 'origin',
-                'date_due', 'state', 'partner_id',
+                'date_due', 'state', 'partner_id', 'commercial_partner_id',
             ]
         },
 

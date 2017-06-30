@@ -87,6 +87,11 @@ odoo.define('pos_pay_invoice.screens', function (require) {
             return self.$('input.search-filter');
         },
 
+        get_select_customer_btn_el: function() {
+            var self = this;
+            return self.$('.select-customer');
+        },
+
         get_search_loading_spinner_el: function() {
             var self = this;
             return self.$('.searchbox > .spinner');
@@ -110,6 +115,16 @@ odoo.define('pos_pay_invoice.screens', function (require) {
         hide_search_loading_spinner: function() {
             var self = this;
             self.get_search_loading_spinner_el().hide();
+        },
+
+        show_select_customer_btn: function() {
+            var self = this;
+            self.get_select_customer_btn_el().removeClass('oe_hidden');
+        },
+
+        hide_select_customer_btn: function() {
+            var self = this;
+            self.get_select_customer_btn_el().addClass('oe_hidden');
         },
 
         go_back: function() {
@@ -229,6 +244,7 @@ odoo.define('pos_pay_invoice.screens', function (require) {
 
             if(!invoice) {
                 self.hide_invoice_details();
+                self.hide_select_customer_btn();
                 self.set_invoice(false);
                 return;
             }
@@ -251,9 +267,9 @@ odoo.define('pos_pay_invoice.screens', function (require) {
         toggle_select_customer_button: function() {
             var self = this;
             if(self.has_customer()) {
-                self.$('.select-customer').addClass('oe_hidden');
+                self.hide_select_customer_btn();
             } else {
-                self.$('.select-customer').removeClass('oe_hidden');
+                self.show_select_customer_btn();
             }
         },
 

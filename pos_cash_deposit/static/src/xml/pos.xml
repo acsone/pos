@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="ProductScreenWidget">
+
+        <t t-jquery=".window" t-operation="append">
+            <div class="subwindow">
+                <div class='subwindow-container'>
+                    <div class="subwindow-container-fix pads window-cash-deposit">
+                        <span class="placeholder-CashDepositWidget"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+
+    </t>
+
+    <t t-name="CashDepositWidget">
+        <div class="actionpad cash-deposit-pad">
+            <button t-attf-class="button cash-deposit-button" >
+                <i class="fa fa-bank"/> Cash deposit
+            </button>
+        </div>
+    </t>
+
+    <t t-name="CashDepositPopUpWidget">
+        <div class="modal-dialog cash-deposit-dialog">
+            <div class="popup popup-cash-deposit">
+                <h4 class="modal-title">Cash deposit</h4>
+
+                <div class="form-row">
+                    <div>
+                        <span>Message:</span>
+                    </div>
+                    <div>
+                        <textarea name="message" rows="5"/>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div>
+                        <span>Amount:</span>
+                    </div>
+                    <div>
+                        <input type="number" name="amount"/>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <span class="button validate-cash-deposit">Validate</span>
+                    <span class="button close">Close</span>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="Orderline">
+        <t t-jquery="t[t-esc='line.get_product().display_name']" t-operation="append">
+            <t t-if="line.get_cash_deposit_message()">
+                &amp;nbsp;:&amp;nbsp; <t t-esc="line.get_cash_deposit_message()"/>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="PosTicket">
+        <t t-jquery="t[t-esc='orderline.get_product().display_name']" t-operation="after">
+            <t t-if='orderline.get_cash_deposit_message()'>
+                <span> : <t t-esc="orderline.get_cash_deposit_message()"/></span>
+            </t>
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,99 @@
+.pos .invoicelist-screen .searchbox {
+  right: auto;
+  margin-left: -90px;
+  margin-top: 8px;
+  left: 50%;
+}
+.pos .invoicelist-screen .searchbox input {
+  width: 120px;
+}
+.pos .invoicelist-screen .invoice-details-box {
+  position: relative;
+  font-size: 16px;
+}
+.pos .invoicelist-screen .invoice-details-left {
+  width: 50%;
+  float: left;
+}
+.pos .invoicelist-screen .invoice-details-right {
+  width: 50%;
+  float: right;
+}
+.pos .invoicelist-screen .invoice-details {
+  padding: 16px;
+  border-bottom: solid 5px #6ec89b;
+}
+.pos .invoicelist-screen .invoice-details .invoice-name {
+  font-size: 32px;
+  line-height: 64px;
+  margin-bottom: 16px;
+}
+.pos .invoicelist-screen .invoice-details .invoice-detail {
+  line-height: 24px;
+}
+.pos .invoicelist-screen .invoice-details .invoice-detail > .label {
+  font-weight: bold;
+  display: inline-block;
+  width: 75px;
+  text-align: right;
+  margin-right: 8px;
+}
+.pos .invoicelist-screen .invoice-details .action-buttons {
+  position: absolute;
+  right: 16px;
+  top: 10px;
+}
+.pos .invoicelist-screen .invoice-details .action-buttons .button {
+  display: inline-block;
+  margin-left: 16px;
+  color: #808080;
+  cursor: pointer;
+  font-size: 36px;
+}
+.pos .invoicelist-screen .invoice-list {
+  font-size: 16px;
+  width: 100%;
+  line-height: 40px;
+}
+.pos .invoicelist-screen .invoice-list td,
+.pos .invoicelist-screen .invoice-list tr {
+  padding: 0px 8px;
+}
+.pos .invoicelist-screen .invoice-list tr {
+  transition: all 150ms linear;
+  background: #e6e6e6;
+}
+.pos .invoicelist-screen .invoice-list thead > tr,
+.pos .invoicelist-screen .invoice-list tr:nth-child(even) {
+  background: #f7f7f7;
+}
+.pos .invoicelist-screen .invoice-list tr.highlight {
+  transition: all 150ms linear;
+  background: #6ec89b !important;
+  color: white;
+}
+.pos .invoicelist-screen .invoice-list tr.lowlight {
+  transition: all 150ms linear;
+  background: #d8eee3;
+}
+.pos .invoicelist-screen .invoice-list tr.lowlight:nth-child(even) {
+  transition: all 150ms linear;
+  background: #e3f6ed;
+}
+div.cash-deposit-pad {
+  width: 202px !important;
+}
+div.pay-invoice-pad {
+  display: inline-block !important;
+  float: right !important;
+  text-align: center !important;
+  width: 202px !important;
+  margin: 16px !important;
+  margin-top: 8px !important;
+  margin-left: 0px !important;
+  border: none !important;
+  border-radius: 0 !important;
+  border-top: 1px solid !important;
+  border-color: #bfbfbf !important;
+  border-top-right-radius: 4px !important;
+}

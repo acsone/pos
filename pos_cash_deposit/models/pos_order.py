@@ -46,8 +46,8 @@ class PosOrder(models.Model):
                         (0, 0, receivable_line_values),
                     ]
                 })
-                order.reconcile_cash_deposit_entries(
-                    cash_deposit_product, move)
+            order.reconcile_cash_deposit_entries(
+                cash_deposit_product, move)
 
     @api.multi
     def reconcile_cash_deposit_entries(self, product, move):
@@ -65,6 +65,7 @@ class PosOrder(models.Model):
             ('account_id', '=', account_id),
             ('product_id', '=', product.id),
             ('partner_id', '=', self._get_accounting_partner().id),
+            ('reconciled', '=', False)
         ]).reconcile()
 
     @api.multi

@@ -48,7 +48,8 @@ class PosSession(models.Model):
             'account_id': account_id,
             'move_id': move.id
         }
-        return self.env['account.move.line'].create(item_vals)
+        return self.env['account.move.line'].with_context(
+            check_move_validity=False).create(item_vals)
 
     @api.model
     def _create_reverse_line(self, line_to_reverse, move):
@@ -91,6 +92,7 @@ class PosSession(models.Model):
             if counterpart_credit:
                 self._create_globalization_counterpart_line(
                     0.0, counterpart_credit, global_account_id, move)
+        move._post_validate()
         for lines in to_reconcile:
             lines.reconcile()
 

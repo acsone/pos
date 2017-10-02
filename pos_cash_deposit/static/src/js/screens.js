@@ -28,6 +28,24 @@ odoo.define('pos_cash_deposit.screens', function (require) {
             }
         },
 
+        order_is_valid: function(force_validation) {
+            var self = this;
+            var result = self._super.apply(self, force_validation);
+
+            var order = this.pos.get_order();
+
+            if(order.has_cash_deposit() && !order.get_client()) {
+                this.gui.show_popup('error', {
+                    'title': _t("Cash deposit with no customer."),
+                    'body': _t("This order contains a cash deposit but is " +
+                        "not link to any customer. Please select a customer " +
+                        "or delete the cash deposit."),
+                });
+                return false;
+            }
+            return result;
+        },
+
     });
 
     ProductScreenWidget.include({

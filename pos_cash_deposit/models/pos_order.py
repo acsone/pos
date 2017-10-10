@@ -13,13 +13,6 @@ class PosOrder(models.Model):
     _inherit = 'pos.order'
 
     @api.multi
-    def _create_account_move_line(self, session=None, move=None):
-        res = super(PosOrder, self)._create_account_move_line(
-            session=session, move=move)
-        self.create_and_reconcile_cash_deposit_entries(move=move)
-        return res
-
-    @api.multi
     def create_and_reconcile_cash_deposit_entries(self, move=None):
         for order in self:
             move = move and move or order.account_move

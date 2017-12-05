@@ -78,14 +78,14 @@ class PosOrder(models.Model):
         name = product.name
 
         if order_line.cash_deposit_msg:
-            name = '%s (%s)' % (name, order_line.cash_deposit_msg)
+            name = '%s (%s) - %s' % (name, order_line.cash_deposit_msg,
+                                     self.name)
 
         values = {
             'name': name,
             'quantity': order_line.qty,
             'product_id': product.id,
             'date': self.date_order[:10],
-            'ref': self.name,
             'partner_id': partner.id,
             'journal_id': sale_journal.id,
             'move_id': move and move.id or self.account_move.id,

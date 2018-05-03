@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+<data>
+
+    <record model="ir.ui.view" id="pos_config_form_view">
+        <field name="name">pos.config.form (in pos_pay_invoice)</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+        <field name="arch" type="xml">
+
+            <field name="iface_cash_deposit" position="after">
+                <field name="iface_pay_invoice"/>
+            </field>
+
+        </field>
+    </record>
+
+</data>
+</odoo>

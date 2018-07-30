@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2017 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+<data>
+
+    <record model="ir.ui.view" id="pos_config_form_view">
+        <field name="name">pos.config.form (in pos_cash_deposit)</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+        <field name="arch" type="xml">
+
+            <field name="iface_tax_included" position="after">
+                <field name="iface_cash_deposit"/>
+            </field>
+
+            <group name="features" position="after">
+                <group name="cash_deposit_options" string="Cash deposit"
+                       attrs="{'invisible': [('iface_cash_deposit', '=', False)]}">
+                    <field name="cash_deposit_product_id" string="Product"
+                           attrs="{'required': [('iface_cash_deposit', '=', True)]}"/>
+                </group>
+            </group>
+
+        </field>
+    </record>
+
+</data>
+</odoo>

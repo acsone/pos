@@ -7,7 +7,7 @@
         <t t-jquery="td.delete-button" t-operation="before">
             <t t-if="line.cashregister.journal.payment_mode and widget.pos.config.iface_payment_terminal">
                 <td>
-                   <button class="payment-terminal-transaction-start"  t-att-data-cid='line.cid'>Start transaction</button>
+                   <button class="payment-terminal-transaction-start" t-att-data-cid='line.cid'>Start transaction</button>
                 </td>
             </t>
         </t>

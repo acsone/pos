@@ -57,7 +57,32 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             data.amount = line.get_amount();
             data.payment_mode = line.cashregister.journal.payment_mode;
         },
+        handle_terminal_response: function(line_id, response){
+            // This is intended to entrich payment line with
+            // useful values (status, transaction_id, ...)
+            if (response === undefined){
+                return;
+            }
+            var self = this;
+            var order = self.pos.get_order()
+            var line = order.get_paymentline(line_id)
+            var paymentwidget = self.pos.chrome.screens.payment;
+            if ('transaction_id' in response){
+                line.transaction_id = response['transaction_id']
+            }
+            if ('success' in response){
+                line.success = response['success']
+            }
+            if ('status' in response){
+                line.status = response['status']
+            }
+            if ('reference' in response){
+                line.reference = response['reference']
+            }
+            order.save_to_db();
+        },
         payment_terminal_transaction_start: function(line_cid, currency_iso, currency_decimals){
+            var self = this;
             var line;
             var order = this.pos.get_order();
             var lines = order.get_paymentlines();
@@ -69,10 +94,12 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
             var data = {
                  'currency_iso' : currency_iso,
                  'currency_decimals' : currency_decimals,
-                 'order_id': order.uid
+                 'order_id': order.uid,
             }
-            this.update_transaction_data(line, data)
-            this.message('payment_terminal_transaction_start', {'payment_info' : JSON.stringify(data)});
+            self.update_transaction_data(line, data)
+            self.message('payment_terminal_transaction_start', {'payment_info' : JSON.stringify(data)}).then(function(result){
+                self.handle_terminal_response(line.cid, result);
+            });
         },
     });
 
@@ -112,6 +139,40 @@ odoo.define('pos_payment_terminal.pos_payment_terminal', function (require) {
         export_as_JSON: function() {
             var vals = _orderproto.export_as_JSON.apply(this, arguments);
             vals['transactions'] = this.transactions || {};
+            return vals;
+        },
+        get_paymentline: function(id){
+            var paymentlines = this.paymentlines.models;
+            for(var i = 0; i < paymentlines.length; i++){
+                if(paymentlines[i].cid === id){
+                    return paymentlines[i];
+                }
+            }
+            return null;
+        },
+    });
+    var _paymentlineproto = models.Paymentline.prototype;
+    models.Paymentline = models.Paymentline.extend({
+        initialize: function(attr, options){
+            this.terminal_transaction_id = false;
+            this.terminal_transaction_success = false;
+            this.terminal_transaction_status = false;
+            this.terminal_transaction_reference = false;
+            _paymentlineproto.initialize.apply(this, arguments);
+        },
+        init_from_JSON: function(json){
+            _paymentlineproto.init_from_JSON.apply(this, arguments);
+            this.transaction_id = json.transaction_id;
+            this.success = json.success;
+            this.status = json.status;
+            this.reference = json.reference;
+        },
+        export_as_JSON: function() {
+            var vals = _paymentlineproto.export_as_JSON.apply(this, arguments);
+            vals['transaction_id'] = this.transaction_id || false;
+            vals['success'] = this.success || false;
+            vals['status'] = this.status || false;
+            vals['reference'] = this.reference || false;
             return vals;
         }
     });

@@ -14,15 +14,6 @@ odoo.define('pos_payment_terminal.models', function (require) {
 
     var _orderproto = models.Order.prototype;
     models.Order = models.Order.extend({
-        initialize: function(){
-            _orderproto.initialize.apply(this, arguments);
-            this.in_transaction = false;
-        },
-        export_as_JSON: function() {
-            var vals = _orderproto.export_as_JSON.apply(this, arguments);
-            vals['transactions'] = this.transactions || {};
-            return vals;
-        },
         get_paymentline: function(id){
             var paymentlines = this.paymentlines.models;
             for(var i = 0; i < paymentlines.length; i++){
@@ -51,10 +42,10 @@ odoo.define('pos_payment_terminal.models', function (require) {
     var _paymentlineproto = models.Paymentline.prototype;
     models.Paymentline = models.Paymentline.extend({
         initialize: function(attr, options){
-            this.terminal_transaction_id = false;
-            this.terminal_transaction_success = false;
-            this.terminal_transaction_status = false;
-            this.terminal_transaction_reference = false;
+            this.terminal_transaction_id = null;
+            this.terminal_transaction_success = null;
+            this.terminal_transaction_status = null;
+            this.terminal_transaction_reference = null;
             _paymentlineproto.initialize.apply(this, arguments);
         },
         init_from_JSON: function(json){
@@ -66,21 +57,11 @@ odoo.define('pos_payment_terminal.models', function (require) {
         },
         export_as_JSON: function() {
             var vals = _paymentlineproto.export_as_JSON.apply(this, arguments);
-            vals['terminal_transaction_id'] = this.terminal_transaction_id || false;
-            vals['terminal_transaction_success'] = this.terminal_transaction_success || false;
-            vals['terminal_transaction_status'] = this.terminal_transaction_status || false;
-            vals['terminal_transaction_reference'] = this.terminal_transaction_reference || false;
+            vals['terminal_transaction_id'] = this.terminal_transaction_id;
+            vals['terminal_transaction_success'] = this.terminal_transaction_success;
+            vals['terminal_transaction_status'] = this.terminal_transaction_status;
+            vals['terminal_transaction_reference'] = this.terminal_transaction_reference;
             return vals;
-        },
-        get_amount: function(){
-            // If payment line is related to terminal transaction,
-            // return the amount really paid
-            var self = this;
-            var amount = _paymentlineproto.get_amount.apply(this, arguments);
-            if (self.terminal_transaction_id && !self.terminal_transaction_success){
-                amount = 0
-            }
-            return amount;
         },
     });
 });

@@ -28,7 +28,6 @@ odoo.define('pos_payment_terminal.devices', function (require) {
             var paymentwidget = self.pos.chrome.screens.payment;
             var drivers = status.newValue.drivers;
             var order = self.pos.get_order();
-            var in_transaction = false;
 
             // Check if the driver result is a terminal and then
             // update payment lines with result
@@ -37,7 +36,6 @@ odoo.define('pos_payment_terminal.devices', function (require) {
                     self.update_payment_line(drivers[driver_name])
                 }
             });
-            order.in_transaction = in_transaction;
             paymentwidget.order_changes();
         },
         update_payment_line: function(response){
@@ -100,14 +98,8 @@ odoo.define('pos_payment_terminal.devices', function (require) {
         },
         payment_terminal_transaction_start: function(line_cid, currency_iso, currency_decimals){
             var self = this;
-            var line;
             var order = this.pos.get_order();
-            var lines = order.get_paymentlines();
-            for ( var i = 0; i < lines.length; i++ ) {
-                if (lines[i].cid === line_cid) {
-                    line = lines[i];
-                }
-            }
+            var line = order.get_paymentline(line_cid);
             var data = {
                  'currency_iso' : currency_iso,
                  'currency_decimals' : currency_decimals,

@@ -19,30 +19,33 @@ odoo.define('pos_payment_terminal.screens', function (require) {
             var order = self.pos.get_order();
             self.render_paymentlines();
             order.save_to_db();
-            self.$('.delete-button[data-cid='+ line.cid + ']').prop('disabled', true);
+            if (line.terminal_transaction_success === false){
+                self.$('.delete-button[data-cid='+ line.cid + ']').toggle(true);
+            }
         },
         render_paymentlines : function(){
             this._super.apply(this, arguments);
             var self = this;
-            this.$('.paymentlines-container').unbind('click').on('click', '.payment-terminal-transaction-start', function(event){
-                // Why this "on" thing links severaltime the button to the action if I don't use "unlink" to reset the button links before ?
-                //console.log(event.target);
-                self.pos.get_order().in_transaction = true;
-                self.order_changes();
-                self.pos.proxy.payment_terminal_transaction_start($(this).data('cid'), self.pos.currency.name, self.pos.currency.decimals);
-            });
-        },
-        order_changes: function(){
-            this._super.apply(this, arguments);
-            var self = this;
-            var order = this.pos.get_order();
-            if (!order) {
-                return;
-            } else if (order.in_transaction) {
-                self.$('.next').html('<img src="/web/static/src/img/throbber.gif" style="animation: fa-spin 1s infinite steps(12);width: 20px;height: auto;vertical-align: middle;">');
-            } else {
-                self.$('.next').html('Validate <i class="fa fa-angle-double-right"></i>');
+            this.$('.paymentlines-container').unbind('click').on('click', '.payment-terminal-transaction-start', self.on_click_transaction_start);
+            var payment_lines = self.pos.get_order().get_paymentlines()
+            for (var line_id in payment_lines){
+                var payment_line = payment_lines[line_id]
+                if (payment_line.terminal_transaction_id && !payment_line.terminal_transaction_success || payment_line.terminal_transaction_success === true){
+                    self.$('.delete-button[data-cid='+ payment_line.cid + ']').toggle(false);
+                }
             }
-        }
+        },
+        hide_transaction_started: function(line_cid){
+            var self = this;
+            self.$('.payment-terminal-transaction-start[data-cid='+ line_cid + ']').toggle(false);
+            self.$('.delete-button[data-cid='+ line_cid + ']').toggle(false);
+        },
+        on_click_transaction_start: function(event){
+            var line_cid = $(event.currentTarget).data('cid');
+            var self = this;
+            self.hide_transaction_started(line_cid);
+            self.order_changes();
+            self.pos.proxy.payment_terminal_transaction_start(line_cid, self.pos.currency.name, self.pos.currency.decimals);
+        },
     });
 });

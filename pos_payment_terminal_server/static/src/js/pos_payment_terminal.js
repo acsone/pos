@@ -16,12 +16,15 @@ odoo.define('pos_payment_terminal_server.pos_payment_terminal', function (requir
             this._super.apply(this, arguments);
             if (this.pos.config.iface_payment_terminal_server){
                 var self = this;
-                this.$('.paymentlines-container').unbind('click').on('click', '.payment-terminal-transaction-start', function(event){
-                    self.pos.get_order().in_transaction = true;
-                    self.order_changes();
-                    self.pos.terminal_server.payment_terminal_transaction_start($(this).data('cid'), self.pos.currency.name, self.pos.currency.decimals);
-                });
             }
+        },
+        on_click_transaction_start: function(event){
+            // TODO: Remove this and make mechanism in pos_payment_terminal
+            var self = this;
+            var line_cid = $(event.currentTarget).data('cid');
+            self.hide_transaction_started(line_cid);
+            self.order_changes();
+            self.pos.terminal_server.payment_terminal_transaction_start(line_cid, self.pos.currency.name, self.pos.currency.decimals);
         }
     });
 });

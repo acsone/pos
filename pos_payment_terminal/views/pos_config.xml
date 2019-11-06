@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <field name="iface_cashdrawer" position="after">
                 <field name="iface_payment_terminal"/>
+                <field name="protect_automatic_payment"/>
             </field>
         </field>
     </record>

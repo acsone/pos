@@ -10,3 +10,15 @@
     bottom: 10px;
     position: absolute;
 }
+
+.payment-spinner {
+    background: url(''/web/static/src/img/throbber.gif'');
+    animation: fa-spin 1s infinite steps(12);
+    width: 20px;
+    height: auto;
+    vertical-align: middle;
+}
+
+.payment-status {
+    font-size: 16px;
+}

@@ -13,6 +13,12 @@ odoo.define('pos_payment_terminal.screens', function (require) {
     var screens = require('point_of_sale.screens');
 
     screens.PaymentScreenWidget.include({
+        deactivate_next: function(){
+            this.$('.next').toggle(false);
+        },
+        activate_next: function(){
+            this.$('.next').toggle(true);
+        },
         transaction_changed: function(line){
             // Allows to change interface
             var self = this;
@@ -21,6 +27,9 @@ odoo.define('pos_payment_terminal.screens', function (require) {
             order.save_to_db();
             if (line.terminal_transaction_success === false){
                 self.$('.delete-button[data-cid='+ line.cid + ']').toggle(true);
+            }
+            else if (line.terminal_transaction_success === true){
+                self.activate_next();
             }
         },
         render_paymentlines : function(){
@@ -31,12 +40,16 @@ odoo.define('pos_payment_terminal.screens', function (require) {
             for (var line_id in payment_lines){
                 var payment_line = payment_lines[line_id]
                 if (payment_line.terminal_transaction_id && !payment_line.terminal_transaction_success || payment_line.terminal_transaction_success === true){
+                    self.activate_next();
                     self.$('.delete-button[data-cid='+ payment_line.cid + ']').toggle(false);
                 }
             }
         },
         hide_transaction_started: function(line_cid){
             var self = this;
+            if (self.pos.config.protect_automatic_payment){
+                self.deactivate_next();
+            }
             self.$('.payment-terminal-transaction-start[data-cid='+ line_cid + ']').toggle(false);
             self.$('.delete-button[data-cid='+ line_cid + ']').toggle(false);
         },

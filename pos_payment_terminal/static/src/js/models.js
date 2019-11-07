@@ -2,6 +2,7 @@
     POS Payment Terminal module for Odoo
     Copyright (C) 2014-2016 Aurélien DUMAINE
     Copyright (C) 2014-2016 Akretion (www.akretion.com)
+    Copyright (C) 2019 ACSONE SA/NV
     @author: Aurélien DUMAINE
     @author: Alexis de Lattre <alexis.delattre@akretion.com>
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -37,6 +38,23 @@ odoo.define('pos_payment_terminal.models', function (require) {
                 }
             }
             return;
+        },
+        show_validate_button: function(){
+            var show = true;
+            var self = this;
+
+            if (self.pos.config.protect_automatic_payment){
+                var payment_lines = self.get_paymentlines();
+                for (var id in payment_lines){
+                    var payment_line = payment_lines[id]
+                    var payment_mode = payment_line.cashregister.journal.payment_mode
+                    if (payment_mode && (!payment_line.terminal_transaction_id || (payment_line.terminal_transaction_id && !payment_line.terminal_transaction_success))) {
+                        show = false;
+                        break;
+                    }
+                }
+            }
+            return show;
         }
     });
     var _paymentlineproto = models.Paymentline.prototype;
@@ -63,5 +81,49 @@ odoo.define('pos_payment_terminal.models', function (require) {
             vals['terminal_transaction_reference'] = this.terminal_transaction_reference;
             return vals;
         },
+        show_delete_button: function(){
+            var show = true;
+            var self = this;
+            if (self.terminal_transaction_id){
+                if(!self.terminal_transaction_success){
+                    show = false;
+                }
+                if(self.terminal_transaction_success === false){
+                    show = true;
+                }
+            }
+            return show;
+        },
+        show_payment_spinner: function(){
+            var show = false;
+            var self = this;
+
+            if (self.terminal_transaction_id){
+                if(self.terminal_transaction_success === null){
+                    show = true;
+                }
+            }
+            return show;
+        },
+        show_transaction_start: function(){
+            var show = true;
+            var self = this;
+            if (self.terminal_transaction_id){
+                if(self.terminal_transaction_success === null || self.terminal_transaction_success === true){
+                    show = false;
+                }
+            }
+            return show;
+
+        },
+        show_payment_status: function(){
+            var show = false;
+            var self = this;
+
+            if(self.terminal_transaction_success !== undefined && self.terminal_transaction_status){
+                show = true;
+            }
+            return show;
+        }
     });
 });

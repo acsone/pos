@@ -2,6 +2,7 @@
     POS Payment Terminal module for Odoo
     Copyright (C) 2014-2016 Aurélien DUMAINE
     Copyright (C) 2014-2016 Akretion (www.akretion.com)
+    Copyright (C) 2019 ACSONE SA/NV
     @author: Aurélien DUMAINE
     @author: Alexis de Lattre <alexis.delattre@akretion.com>
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
@@ -36,15 +37,17 @@ odoo.define('pos_payment_terminal.devices', function (require) {
                     self.update_payment_line(drivers[driver_name])
                 }
             });
-            paymentwidget.order_changes();
+            if (paymentwidget){
+                paymentwidget.order_changes();
+            }
         },
-        update_payment_line: function(response){
+        update_payment_line: function(driver_status){
             var self = this;
             var order = self.pos.get_order();
             var paymentwidget = self.pos.chrome.screens.payment;
-            if ('transactions' in response){
-                for (var transaction_id in response.transactions){
-                    var transaction = response.transactions[transaction_id];
+            if ('transactions' in driver_status){
+                for (var transaction_id in driver_status.transactions){
+                    var transaction = driver_status.transactions[transaction_id];
                     if ('transaction_id' in transaction){
                         var transaction_id = transaction['transaction_id'];
                         var line = order.get_payment_line_by_transaction(transaction_id);
@@ -60,9 +63,7 @@ odoo.define('pos_payment_terminal.devices', function (require) {
                         if ('reference' in transaction){
                             line.terminal_transaction_reference = transaction['reference'];
                         }
-                        if (line){
-                            paymentwidget.transaction_changed(line);
-                        }
+                        paymentwidget.transaction_changed(line);
                     }
                 }
             }
@@ -82,18 +83,12 @@ odoo.define('pos_payment_terminal.devices', function (require) {
             var order = self.pos.get_order()
             var line = order.get_paymentline(line_id)
             var paymentwidget = self.pos.chrome.screens.payment;
-            if ('transaction_id' in response){
-                line.terminal_transaction_id = response['transaction_id']
-            }
-            if ('success' in response){
-                line.terminal_success = response['success']
-            }
-            if ('status' in response){
-                line.terminal_status = response['status']
-            }
-            if ('reference' in response){
-                line.terminal_reference = response['reference']
-            }
+
+            line.terminal_transaction_id = response.transaction_id;
+            line.terminal_success = response.success;
+            line.terminal_status = response.status;
+            line.terminal_reference = response.reference;
+
             paymentwidget.transaction_changed(line);
         },
         payment_terminal_transaction_start: function(line_cid, currency_iso, currency_decimals){

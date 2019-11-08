@@ -3,11 +3,29 @@
     <t t-extend="PaymentScreen-Paymentlines" >
         <t t-jquery="th:last" t-operation="before">
             <th name="terminal-transaction"></th>
+            <th name="terminal-transaction-spinner"></th>
+            <th name="terminal-transaction-status"></th>
         </t>
         <t t-jquery="td.delete-button" t-operation="before">
             <t t-if="line.cashregister.journal.payment_mode and widget.pos.config.iface_payment_terminal">
                 <td>
-                   <button class="payment-terminal-transaction-start"  t-att-data-cid='line.cid'>Start transaction</button>
+                   <button t-if="line.show_transaction_start()" class="payment-terminal-transaction-start" t-att-data-cid='line.cid'>Start transaction</button>
+                </td>
+                <td>
+                   <img t-if="line.show_payment_spinner()" class="payment-spinner" src="/web/static/src/img/throbber.gif"/>
+                </td>
+                 <td class="payment-status">
+                   <t class="payment-status" t-if="line.show_payment_status()">
+                       <span t-esc="line.terminal_transaction_status"/>
+                   </t>
+                </td>
+            </t>
+            <t t-if="!line.cashregister.journal.payment_mode or !widget.pos.config.iface_payment_terminal">
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
                 </td>
             </t>
         </t>

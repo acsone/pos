@@ -94,6 +94,18 @@ odoo.define('pos_payment_terminal.models', function (require) {
             }
             return show;
         },
+        prepare_transaction_data: function(){
+            var self = this;
+            var order = self.pos.get_order();
+            var data = {
+                 'currency_iso' : self.pos.currency.name,
+                 'currency_decimals' : self.pos.currency.decimals,
+                 'order_id': order.uid,
+                 'amount': self.get_amount(),
+                 'payment_mode': self.cashregister.journal.payment_mode,
+            }
+            return data;
+        },
         show_payment_spinner: function(){
             var show = false;
             var self = this;

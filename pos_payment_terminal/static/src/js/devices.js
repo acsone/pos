@@ -54,23 +54,13 @@ odoo.define('pos_payment_terminal.devices', function (require) {
                         if (line === undefined){
                             continue;
                         }
-                        if ('success' in transaction){
-                            line.terminal_transaction_success = transaction['success'];
-                        }
-                        if ('status' in transaction){
-                            line.terminal_transaction_status = transaction['status'];
-                        }
-                        if ('reference' in transaction){
-                            line.terminal_transaction_reference = transaction['reference'];
-                        }
+                        line.terminal_transaction_success = transaction.success;
+                        line.terminal_transaction_status = transaction.status;
+                        line.terminal_transaction_reference = transaction.reference;
                         paymentwidget.transaction_changed(line);
                     }
                 }
             }
-        },
-        update_transaction_data: function(line, data){
-            data.amount = line.get_amount();
-            data.payment_mode = line.cashregister.journal.payment_mode;
         },
         handle_terminal_response: function(line_id, response){
             // This is intended to entrich payment line with
@@ -91,16 +81,12 @@ odoo.define('pos_payment_terminal.devices', function (require) {
 
             paymentwidget.transaction_changed(line);
         },
-        payment_terminal_transaction_start: function(line_cid, currency_iso, currency_decimals){
+
+        payment_terminal_transaction_start: function(line_cid){
             var self = this;
             var order = this.pos.get_order();
             var line = order.get_paymentline(line_cid);
-            var data = {
-                 'currency_iso' : currency_iso,
-                 'currency_decimals' : currency_decimals,
-                 'order_id': order.uid,
-            }
-            self.update_transaction_data(line, data)
+            var data = line.prepare_transaction_data();
             self.message('payment_terminal_transaction_start', {'payment_info' : JSON.stringify(data)}).then(function(result){
                 self.handle_terminal_response(line.cid, result);
             });

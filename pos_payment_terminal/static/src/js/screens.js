@@ -62,7 +62,7 @@ odoo.define('pos_payment_terminal.screens', function (require) {
         },
         start_transaction: function(line_cid){
             var self = this;
-            self.pos.proxy.payment_terminal_transaction_start(line_cid, self.pos.currency.name, self.pos.currency.decimals);
+            self.pos.proxy.payment_terminal_transaction_start(line_cid);
         }
     });
 });

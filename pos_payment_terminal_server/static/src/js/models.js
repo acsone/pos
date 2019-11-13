@@ -38,6 +38,25 @@ models.PosModel = models.PosModel.extend({
     },
 });
 
+var _paymentlineproto = models.Paymentline.prototype;
+models.Paymentline = models.Paymentline.extend({
+    is_payment_terminal_driven: function(){
+        var self = this;
+        var res = _paymentlineproto.is_payment_terminal_driven.apply(this, arguments);
+        res = self.cashregister.journal.payment_mode && self.pos.config.use_payment_terminal_server;
+        return res;
+    },
+    prepare_transaction_data: function(){
+        var self = this;
+        var data = _paymentlineproto.prepare_transaction_data.apply(this, arguments);
+        var terminal_id = self.pos.config.iface_payment_terminal_id;
+        if (self.is_payment_terminal_driven && terminal_id){
+            data['terminal_id'] = terminal_id
+        }
+        return data;
+    },
+});
+
 
 });
 

@@ -54,10 +54,7 @@ odoo.define('pos_payment_terminal.devices', function (require) {
                         if (line === undefined){
                             continue;
                         }
-                        line.terminal_transaction_success = transaction.success;
-                        line.terminal_transaction_status = transaction.status;
-                        line.terminal_transaction_reference = transaction.reference;
-                        paymentwidget.transaction_changed(line);
+                        self.handle_terminal_response(line.cid, transaction)
                     }
                 }
             }
@@ -75,9 +72,9 @@ odoo.define('pos_payment_terminal.devices', function (require) {
             var paymentwidget = self.pos.chrome.screens.payment;
 
             line.terminal_transaction_id = response.transaction_id;
-            line.terminal_success = response.success;
-            line.terminal_status = response.status;
-            line.terminal_reference = response.reference;
+            line.terminal_transaction_success = response.success;
+            line.terminal_transaction_status = response.status;
+            line.terminal_transaction_reference = response.reference;
 
             paymentwidget.transaction_changed(line);
         },

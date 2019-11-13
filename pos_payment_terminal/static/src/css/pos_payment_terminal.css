@@ -21,4 +21,9 @@
 
 .payment-status {
     font-size: 16px;
+    color: red;
+}
+
+.terminal_start{
+    font-size: 16px;
 }

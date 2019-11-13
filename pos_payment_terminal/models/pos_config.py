@@ -13,3 +13,7 @@ class PosConfig(models.Model):
     iface_payment_terminal = fields.Boolean(
         'Payment Terminal',
         help="A payment terminal is available on the Proxy")
+    protect_automatic_payment = fields.Boolean(
+        help="Check this if you want to hide 'Validate' button when in "
+             "automated electronic transaction."
+    )

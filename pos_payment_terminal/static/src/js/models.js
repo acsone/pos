@@ -106,6 +106,10 @@ odoo.define('pos_payment_terminal.models', function (require) {
             }
             return data;
         },
+        is_payment_terminal_driven: function(){
+            var self = this;
+            return self.cashregister.journal.payment_mode && self.pos.config.iface_payment_terminal;
+        },
         show_payment_spinner: function(){
             var show = false;
             var self = this;
@@ -118,8 +122,8 @@ odoo.define('pos_payment_terminal.models', function (require) {
             return show;
         },
         show_transaction_start: function(){
-            var show = true;
             var self = this;
+            var show = self.is_payment_terminal_driven();
             if (self.terminal_transaction_id){
                 if(self.terminal_transaction_success === null || self.terminal_transaction_success === true){
                     show = false;

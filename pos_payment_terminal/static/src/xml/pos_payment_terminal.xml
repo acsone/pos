@@ -9,9 +9,7 @@
         <t t-jquery="td.delete-button" t-operation="before">
             <td>
                <button t-if="line.show_transaction_start()" class="payment-terminal-transaction-start" t-att-data-cid='line.cid'>Start transaction</button>
-            </td>
-            <td>
-               <img t-if="line.show_payment_spinner()" class="payment-spinner" src="/web/static/src/img/throbber.gif"/>
+                <img t-if="line.show_payment_spinner()" class="payment-spinner" src="/web/static/src/img/throbber.gif"/>
             </td>
              <td class="payment-status">
                <t class="payment-status" t-if="line.show_payment_status()">

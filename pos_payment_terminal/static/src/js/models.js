@@ -85,7 +85,7 @@ odoo.define('pos_payment_terminal.models', function (require) {
             var show = true;
             var self = this;
             if (self.terminal_transaction_id){
-                if(!self.terminal_transaction_success){
+                if(!self.terminal_transaction_success || self.terminal_transaction_success===true){
                     show = false;
                 }
                 if(self.terminal_transaction_success === false){

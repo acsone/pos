@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Include JS file for the custom view to select domain from filters -->
+        <template id="assets_backend" name="filter_selection" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                 <script type="text/javascript" src="/pos_cash_deposit/static/src/js/pos_cash_deposit.js"></script>
+                 <script type="text/javascript" src="/pos_cash_deposit/static/src/js/pos_cash_deposit_models.js"></script>
+                 <script type="text/javascript" src="/pos_cash_deposit/static/src/js/pos_cash_deposit_widget.js"></script>
+                 <script type="text/javascript" src="/pos_cash_deposit/static/src/js/pos_cash_deposit_screen.js"></script>
+                 <script type="text/javascript" src="/pos_cash_deposit/static/src/js/pos_cash_deposit_db.js"></script>
+            </xpath>
+        </template>
+    </data>
+</openerp>

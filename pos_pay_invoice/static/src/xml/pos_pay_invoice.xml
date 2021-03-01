@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <!-- ACSONE - ADRIEN PEIFFER -->
+
+    <t t-extend="PosWidget" t-operation="replace">
+        <t t-jquery="#cash_deposit" t-operation="after">
+            <span id="pay_invoice_button" class="order-button">Pay Invoice</span>
+        </t>
+    </t>
+
+        <t t-name="InvoiceScreenWidget">
+        <div class="invoice-screen screen">
+            <table class="layout-table">
+
+                 <tr class="header-row">
+                    <td class="header-cell">
+
+                         <header class='rightpane-header'>
+
+                            <span class="breadcrumb">
+                                 <span class="breadcrumb-button js-category-switch close-invoice">
+                                    <img src="/pos_cash_deposit/static/src/img/close-customer.png" class="breadcrumb-homeimg" />
+                                </span>
+                            </span>
+                        </header>
+
+                    </td>
+                </tr>
+
+                <tr class="content-row">
+                    <td class="content-cell">
+                         <div class="content-container">
+                            <span class="placeholder-InvoiceListWidget" />
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </t>
+
+    <t t-name="InvoiceListWidget">
+        <div class='invoice-list-container'>
+            <div class="invoice-list-scroller touch-scrollable">
+                 <div class="invoice-list">
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Invoice Date</th>
+                        <th>Due Date</th>
+                        <th>Source Document</th>
+                        <th>Balance</th>
+                        <th>Subtotal</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+                </div>
+            </div>
+            <span class="placeholder-ScrollbarWidget" />
+        </div>
+    </t>
+
+    <t t-name="Invoice">
+        <tr class='invoice' t-att-data-invoice-id="invoice.id">
+            <td><t t-esc="invoice.number || ''" /></td>
+            <td><t t-esc="invoice.date_invoice || ''" /></td>
+            <td><t t-esc="invoice.date_due || ''" /></td>
+            <td><t t-esc="invoice.origin || ''" /></td>
+            <td><value value-decimals='2'><t t-esc="invoice.residual || ''" /></value></td>
+            <td><value value-decimals='2'><t t-esc="invoice.amount_untaxed || ''" /></value></td>
+            <td><value value-decimals='2'><t t-esc="invoice.amount_total || ''" /></value></td>
+        </tr>
+    </t>
+</templates>

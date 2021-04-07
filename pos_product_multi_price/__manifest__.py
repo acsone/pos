@@ -13,11 +13,6 @@
     "application": False,
     "installable": True,
     "auto_install": True,
-    "depends": [
-        "point_of_sale",
-        "product_multi_price"
-    ],
-    "data": [
-        "views/assets.xml",
-    ],
+    "depends": ["point_of_sale", "product_multi_price"],
+    "data": ["views/assets.xml"],
 }

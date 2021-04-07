@@ -3,7 +3,7 @@
 {
     "name": "Point of sale - Product Multi Price",
     "summary": "Use pricelists based on multiple prices in point of sale",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "development_status": "Beta",
     "category": "Point Of Sale",
     "website": "https://github.com/OCA/pos",

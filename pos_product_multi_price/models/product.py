@@ -1,6 +1,6 @@
 import json
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class Product(models.Model):
@@ -11,7 +11,6 @@ class Product(models.Model):
         "Multi price data dict", readonly=True, compute="_compute_price_ids_json"
     )
 
-    @api.multi
     def _compute_price_ids_json(self):
         for p in self:
             res = []

@@ -2,6 +2,9 @@ odoo.define("pos_product_multi_price.models", function(require) {
     "use strict";
 
     var models = require("point_of_sale.models");
+    var utils = require("web.utils");
+
+    var round_pr = utils.round_precision;
 
     models.load_fields("product.product", ["price_ids_json"]);
 
@@ -37,9 +40,9 @@ odoo.define("pos_product_multi_price.models", function(require) {
                 if (rule.min_quantity && quantity < rule.min_quantity) {
                     return false;
                 }
-                if (rule.base === "multi_price" && rule.compute_price == "formula") {
+                if (rule.base === "multi_price" && rule.compute_price === "formula") {
                     _.forEach(price_ids_json, function(multi_price) {
-                        if (multi_price.price_id == rule.multi_price_name[0]) {
+                        if (multi_price.price_id === rule.multi_price_name[0]) {
                             price = multi_price.price;
                             var price_limit = price;
                             price -= price * (rule.price_discount / 100);

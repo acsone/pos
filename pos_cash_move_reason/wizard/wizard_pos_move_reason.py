@@ -104,7 +104,6 @@ class WizardPosMoveReason(models.TransientModel):
             "statement_id": self.statement_id.id,
             "journal_id": self.journal_id.id,
             "amount": amount,
-            "account_id": account.id,
             "name": self.name,
-            "ref": self.session_id.name,
+            "payment_ref": self.session_id.name,
         }

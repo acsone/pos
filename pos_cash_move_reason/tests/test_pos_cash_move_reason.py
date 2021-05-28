@@ -1,25 +1,20 @@
 # © 2015 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import SavepointCase
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
+class TestPosCashMoveReason(AccountTestInvoicingCommon):
 
-class TestPosCashMoveReason(SavepointCase):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUpClass(cls, chart_template_ref=None):
+        super().setUpClass(chart_template_ref=chart_template_ref)
         cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
         cls.PosSession = cls.env["pos.session"]
         cls.WizardReason = cls.env["wizard.pos.move.reason"]
         cls.AccountMoveLine = cls.env["account.move.line"]
 
         cls.config = cls.env.ref("point_of_sale.pos_config_main").copy()
-        cls.cash_journal = cls.env["account.journal"].search(
-            [
-                ("type", "=", "cash"),
-                ("company_id", "=", cls.env.ref("base.main_company").id),
-            ]
-        )[0]
+        cls.cash_journal = cls.company_data['default_journal_cash'],
         cls.deposit_reason = cls.env.ref("pos_cash_move_reason.bank_out_reason")
 
     def test_take_money(self):
@@ -31,7 +26,7 @@ class TestPosCashMoveReason(SavepointCase):
 
         # Get Cash Statement
         statement = session.statement_ids.filtered(
-            lambda x: x.journal_id == self.cash_journal
+            lambda x: x.journal_id == self.cash_journal.id
         )
 
         # Take money to put in Bank

@@ -3,8 +3,8 @@
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
-class TestPosCashMoveReason(AccountTestInvoicingCommon):
 
+class TestPosCashMoveReason(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls, chart_template_ref=None):
         super().setUpClass(chart_template_ref=chart_template_ref)
@@ -14,7 +14,7 @@ class TestPosCashMoveReason(AccountTestInvoicingCommon):
         cls.AccountMoveLine = cls.env["account.move.line"]
 
         cls.config = cls.env.ref("point_of_sale.pos_config_main").copy()
-        cls.cash_journal = cls.company_data['default_journal_cash'],
+        cls.cash_journal = (cls.company_data["default_journal_cash"],)
         cls.deposit_reason = cls.env.ref("pos_cash_move_reason.bank_out_reason")
 
     def test_take_money(self):

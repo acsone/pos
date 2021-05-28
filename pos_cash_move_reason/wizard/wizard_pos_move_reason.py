@@ -94,10 +94,10 @@ class WizardPosMoveReason(models.TransientModel):
     def _prepare_statement_line(self):
         self.ensure_one()
         if self.move_type == "income":
-            account = self.move_reason_id.income_account_id
+            self.move_reason_id.income_account_id
             amount = self.amount
         else:
-            account = self.move_reason_id.expense_account_id
+            self.move_reason_id.expense_account_id
             amount = -self.amount
         return {
             "date": fields.Date.context_today(self),

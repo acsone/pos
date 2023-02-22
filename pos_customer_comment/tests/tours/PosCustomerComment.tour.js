@@ -4,7 +4,7 @@
     License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 */
 odoo.define("pos_customer_comment.tour.PosCustomerComment", function (require) {
-    "use strict";
+
 
     const Tour = require("web_tour.tour");
 

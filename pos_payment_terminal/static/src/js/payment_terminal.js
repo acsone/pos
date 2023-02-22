@@ -6,7 +6,7 @@
 */
 
 odoo.define("pos_payment_terminal.payment", function (require) {
-    "use strict";
+
 
     var core = require("web.core");
     var PaymentInterface = require("point_of_sale.PaymentInterface");

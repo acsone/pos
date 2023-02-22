@@ -1,5 +1,5 @@
 odoo.define("pos_product_quick_info.ProductItem", function (require) {
-    "use strict";
+
 
     const ProductItem = require("point_of_sale.ProductItem");
     const Registries = require("point_of_sale.Registries");

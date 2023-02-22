@@ -1,5 +1,5 @@
 odoo.define("pos_global_discount_in_line.GlobalLineDiscount", function (require) {
-    "use strict";
+
 
     const DiscountButton = require("pos_discount.DiscountButton");
     const Registries = require("point_of_sale.Registries");

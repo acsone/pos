@@ -10,7 +10,7 @@
 */
 
 odoo.define("pos_payment_terminal.models", function (require) {
-    "use strict";
+
 
     var models = require("point_of_sale.models");
     const {PosGlobalState, Payment} = require("point_of_sale.models");

@@ -1,5 +1,5 @@
 odoo.define("pos_receipt_hide_price.ReceiptScreen", function (require) {
-    "use strict";
+
 
     const {useState} = owl;
     const ReceiptScreen = require("point_of_sale.ReceiptScreen");

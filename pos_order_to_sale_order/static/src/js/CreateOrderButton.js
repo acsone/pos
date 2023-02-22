@@ -1,5 +1,5 @@
 odoo.define("point_of_sale.CreateOrderButton", function (require) {
-    "use strict";
+
 
     const PosComponent = require("point_of_sale.PosComponent");
     const ProductScreen = require("point_of_sale.ProductScreen");

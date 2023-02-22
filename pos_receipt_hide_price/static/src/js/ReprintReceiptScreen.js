@@ -1,5 +1,5 @@
 odoo.define("pos_receipt_hide_price.ReprintReceiptScreen", function (require) {
-    "use strict";
+
 
     const {useState} = owl;
     const ReprintReceiptScreen = require("point_of_sale.ReprintReceiptScreen");

@@ -4,7 +4,7 @@
 */
 
 odoo.define("pos_escpos_status.ProxyStatus", function (require) {
-    "use strict";
+
     var Registries = require("point_of_sale.Registries");
     var ProxyStatus = require("point_of_sale.ProxyStatus");
 

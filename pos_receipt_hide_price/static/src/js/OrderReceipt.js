@@ -1,5 +1,5 @@
 odoo.define("pos_receipt_hide_price.OrderReceipt", function (require) {
-    "use strict";
+
 
     const OrderReceipt = require("point_of_sale.OrderReceipt");
     const Registries = require("point_of_sale.Registries");

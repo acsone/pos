@@ -13,13 +13,10 @@ odoo.define("pos_customer_display.Chrome", function (require) {
     const PosCustomerDisplay = (Chrome) =>
         class extends Chrome {
             async _closePos() {
-                console.log("CLOSE POS START this=");
-                console.log(this);
                 var msg = this.env.pos.proxy.customer_display_proxy._prepare_message_close();
-                console.log(msg);
+                // console.log(msg);
                 // TODO find a way to display the msg
                 await super._closePos();
-                console.log("CLOSE POS DONE");
             }
         };
 

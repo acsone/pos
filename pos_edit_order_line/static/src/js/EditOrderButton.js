@@ -1,15 +1,13 @@
 odoo.define("pos_edit_order_line.EditOrderButton", function (require) {
-    "use strict";
-
     const PosComponent = require("point_of_sale.PosComponent");
     const ProductScreen = require("point_of_sale.ProductScreen");
-    const {useListener} = require("web.custom_hooks");
+    const {useListener} = require("@web/core/utils/hooks");
     const Registries = require("point_of_sale.Registries");
-    const {_t} = require("web.core");
+    const {_lt} = require("web.core");
 
     class EditOrderButton extends PosComponent {
-        constructor() {
-            super(...arguments);
+        setup() {
+            super.setup();
             useListener("click", this.onClick);
         }
         async onClick() {
@@ -18,8 +16,8 @@ odoo.define("pos_edit_order_line.EditOrderButton", function (require) {
             var order_lines = order.get_orderlines();
             if (!order_lines.length) {
                 return this.showPopup("ErrorPopup", {
-                    title: _t("Empty Order"),
-                    body: _t("You need add some products first"),
+                    title: _lt("Empty Order"),
+                    body: _lt("You need add some products first"),
                 });
             }
             var array = [];
@@ -56,7 +54,7 @@ odoo.define("pos_edit_order_line.EditOrderButton", function (require) {
                 });
             });
             if (!_.isEmpty(payload)) {
-                order.trigger("change");
+                this.env.posbus.trigger("change");
             }
         }
     }

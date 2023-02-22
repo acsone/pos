@@ -1,21 +1,23 @@
 odoo.define("pos_edit_order_line.EditOrderLineInput", function (require) {
-    "use strict";
-
     const {useState} = owl;
     const PosComponent = require("point_of_sale.PosComponent");
     const Registries = require("point_of_sale.Registries");
 
     class EditOrderLineInput extends PosComponent {
-        constructor() {
-            super(...arguments);
+        setup() {
+            super.setup();
             this.state = useState({
                 quantityInput: this.props.item.quantity,
                 priceInput: this.props.item.price,
                 discountInput: this.props.item.discount,
             });
-            this.changes = {};
+            this.changes = {
+                quantityInput: this.props.item.quantity,
+                priceInput: this.props.item.price,
+                discountInput: this.props.item.discount,
+            };
         }
-        onBlur(event) {
+        onChange() {
             const id = this.props.item.id;
             const value = parseFloat(event.target.value.trim());
             if (isNaN(value)) {

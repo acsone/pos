@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="pos_cash_deposit_product" model="product.product">
+            <field name="name">Cash Deposit</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="type">consu</field>
+            <field name="sale_ok" eval="0"/>
+            <field name="purchase_ok" eval="0"/>
+            <field name="available_in_pos" eval="1"/>
+       </record>
+    </data>
+</openerp>

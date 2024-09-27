@@ -1,0 +1,30 @@
+.sale-order-list table {
+    background: white;
+    border: solid 1px rgb(220, 220, 220);
+    border-radius: 3px;
+    -webkit-transform: translate3d(0, 0, 0);
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+}
+
+.sale-order-list tr {
+    border-bottom: 1px solid #cacaca;
+}
+
+.sale-order-list tr:hover {
+    background: #cacaca;
+}
+
+.sale-order-list th {
+    background: #e2e2e2;
+    text-align: left;
+    padding: 6px;
+
+}
+
+.sale-order-list td {
+    background: #fff;
+    padding: 6px 6px 6px 12px;
+    text-align: left;
+}

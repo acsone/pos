@@ -11,7 +11,7 @@ class PosConfig(models.Model):
     iface_event_sale = fields.Boolean(
         "Events",
         help="Sell events on this point of sale.",
-        default=True,
+        default=False,
     )
     iface_available_event_stage_ids = fields.Many2many(
         "event.stage",

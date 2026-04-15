@@ -40,6 +40,12 @@ def post_init_hook(cr, __):
     """Set the Event Registration product available for POS"""
     env = api.Environment(cr, SUPERUSER_ID, {})
     product = env.ref("event_sale.product_product_event", raise_if_not_found=False)
+    default_category = env['pos.category'].create({'name': 'Default'})
     if product:
-        _logger.info("Setting default Event Product as available in Point of Sale..")
-        product.available_in_pos = True
+        _logger.info("Setting default Event Product as available in Point of Sale with a default category.")
+        product.write(
+            {
+                "pos_categ_id": default_category.id,
+                "available_in_pos": True,
+            }
+        )

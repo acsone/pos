@@ -107,7 +107,7 @@ odoo.define("pos_event_sale.db", function (require) {
          * @param {Boolean} raiseIfNotFound
          * @returns the event or list of events if you pass a list of ids.
          */
-        getEventByID: function (event_id, raiseIfNotFound = true) {
+        getEventByID: function (event_id, raiseIfNotFound = false) {
             if (event_id instanceof Array) {
                 return event_id
                     .map((id) => this.getEventByID(id, raiseIfNotFound))
@@ -124,7 +124,7 @@ odoo.define("pos_event_sale.db", function (require) {
          * @param {Boolean} raiseIfNotFound
          * @returns the event ticket or list of event tickets if you pass a list of ids.
          */
-        getEventTicketByID: function (ticket_id, raiseIfNotFound = true) {
+        getEventTicketByID: function (ticket_id, raiseIfNotFound = false) {
             if (ticket_id instanceof Array) {
                 return ticket_id
                     .map((id) => this.getEventTicketByID(id, raiseIfNotFound))
